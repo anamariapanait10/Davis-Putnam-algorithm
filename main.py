@@ -39,7 +39,6 @@ def davis_putnam(i, Si, var):
                 if len(C0) != 1:
                     aux2 = C0[:]
                     aux2.remove("¬"+var[i-1])
-                    print(aux, aux2, end=" ")
                     aux += aux2
                     aux = list(set(aux))
                 if len(aux) == 0:
@@ -75,7 +74,7 @@ def davis_putnam(i, Si, var):
         print_set(f"\t\tS{i+1}", Si_1)
     print(f"P{i}.4\t", end="")
     if len(Si_1) == 0:
-        print("S{i+1} = \u2205=> S e satisfiabila")
+        print(f"S{i+1} = \u2205=> S e satisfiabila")
     elif "□" in Si_1:
         print(f"□ ∈ S{i+1} => S este nesatisfiabila")
     else:
@@ -88,6 +87,7 @@ if __name__ == '__main__':
     # {{v1, ¬v3},{v2, v1}, {v2, ¬v1, v3}}
     # {{-v2},{-v2, -v3},{-v3,v4},{-v3},{-v1,v2},{v1},{-v3,-v4},{-v4}}
     # {{-v0, -v1, v2}, {-v3,v1,v4},{-v0,-v4,v5},{-v2,v6},{-v5,v6},{-v0,v3},{v0},{-v6}}
+    # {{¬v1, ¬v2, ¬v4}, {¬v2, ¬v3}, {v1, ¬v3}, {v1, v4}, {v3}}
     inp = input("S = ").replace("-", "¬").replace(",", " ").replace("}", "|").replace("{", "|").split("|")
 
     S = []
@@ -99,10 +99,12 @@ if __name__ == '__main__':
         for v in elem:
             if "¬" not in v:
                 var.add(v)
+            else:
+                var.add(v[1:])
     var = sorted(var)
 
     inp2 = input("var = ")
-    if inp2 != "":
+    if len(inp2) != 0:
         var = inp2.replace(",", "").split()
 
     print()
