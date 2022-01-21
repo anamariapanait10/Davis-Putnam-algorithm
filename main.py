@@ -40,7 +40,8 @@ def davis_putnam(i, Si, var):
                     aux2 = C0[:]
                     aux2.remove("¬"+var[i-1])
                     aux += aux2
-                    aux = list(set(aux))
+                    aux = sorted(set(aux), key=aux.index)
+
                 if len(aux) == 0:
                     U.append("□")
                 else:
